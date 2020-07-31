@@ -32,7 +32,8 @@ import NavBar from 'components/common/navbar/NavBar'
     },
     methods: {
       titleCilck(index){
-        this.currentIndex = index
+        this.currentIndex = index;
+        this.$emit('titleCilck',index);
       },
       backClick() {
         this.$router.back()
