@@ -6,23 +6,27 @@
           <span class="text">客服</span>
         </div>
         <div>
-          <i class="icon icondianpu shop"></i>
+          <i class="iconfont icondianpu shop"></i>
           <span class="text">店铺</span>
         </div>
         <div>
-          <i class="icon iconshoucang select"></i>
+          <i class="iconfont iconshoucang select"></i>
           <span class="text">收藏</span>
         </div>
       </div>
       <div class="bar-item bar-right">
-        <div class="cart">加入购物车</div>
+        <div class="cart" @click="addToCart">加入购物车</div>
         <div class="buy">购买</div>
       </div>
   </div>
 </template>
 <script>
   export default {
-    
+    methods: {
+      addToCart() {
+        this.$emit('addCart')
+      }
+    },
   }
 </script>
 
@@ -52,18 +56,23 @@
   flex: 1;
   border-right: 0.04rem solid rgba(128, 128, 128, 0.2);
 }
-.bar-left .icon {
+.bar-left span {
   display: block;
-  // background: url("~assets/img/detail/detail_bottom.png") 0 0/100%;
-  width: 1rem;
-  height: 1rem;
-  margin: 0.12rem auto;
+  padding-top: 5px;
 }
-.service .text {
-  background-position: 0 -2.4rem;
-}
-.shop .text {
-  background-position: 0 -4.5rem;
+.bar-left {
+  .service {
+    display: block;
+    padding-top: 5px;
+  }
+  .shop {
+    display: block;
+    padding-top: 5px;
+  }
+  .select {
+    display: block;
+    padding-top: 5px;
+  }
 }
 .bar-right {
   display: flex;

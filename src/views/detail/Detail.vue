@@ -10,7 +10,7 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo"></detail-comment-info>
       <goods-list ref="recommend" :goods="recommends"></goods-list>
     </Scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
       <back-top @click.native="backClick"
      v-show="isShowBackTop" 
     ></back-top>
@@ -36,6 +36,7 @@ import {itemListenerMixin,backTopMixin} from 'common/mixin'
 
  import Scroll from 'components/common/scroll/Scroll'
  import GoodsList from 'components/content/goods/GoodsList'
+ import {mapActions} from 'vuex'
 
 
  import {getDetail,getRecommend,Goods,Shop,GoodsParam} from 'network/detail'
@@ -132,6 +133,7 @@ import {itemListenerMixin,backTopMixin} from 'common/mixin'
         },100)
       )},
       methods: {
+        ...mapActions(['addCart']),
         imageLoad() {
           this.$refs.scroll.refresh()
 
@@ -172,6 +174,27 @@ import {itemListenerMixin,backTopMixin} from 'common/mixin'
           this.isShowBackTop = (-position.y) > 1000
 
         },
+        addToCart() {
+          //获取购物车需要展示的信息
+          const product = {}
+          product.image = this.topImages[0]
+          product.title = this.goods.title
+          product.desc = this.goods.desc
+          product.newPrice = this.goods.realPrice
+          product.iid = this.iid
+
+          // 将商品添加到购物车(1.Promise 2.mapActions)
+          // this.$store.commit('addCart',product)
+
+          this.addCart(product).then(res => {
+            
+            this.$toast.show(res,2000)
+          })
+
+          // this.$store.dispatch('addCart',product).then(res => {
+          //   console.log(res);
+          // })
+        }
       
       },
       // mounted() {
